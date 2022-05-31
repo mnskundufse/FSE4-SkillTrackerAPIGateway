@@ -1,0 +1,83 @@
+﻿{
+  "Routes": [
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/skill-tracker/api/v{version}/engineer/add-profile",
+      "DownstreamScheme": "https",
+      "ServiceName": "engineerAddProfileService",
+      "UpstreamPathTemplate": "/skill-tracker/api/v{version}/engineer/add-profile",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRoutesCaseSensitive": false,
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 1000,
+        "TimeoutValue": 10000
+      }
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/skill-tracker/api/v{version}/engineer/update-profile/{userId}",
+      "DownstreamScheme": "https",
+      "ServiceName": "engineerUpdateProfileService",
+      "UpstreamPathTemplate": "/skill-tracker/api/v{version}/engineer/update-profile/{userId}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRoutesCaseSensitive": false,
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 1000,
+        "TimeoutValue": 10000
+      }
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/skill-tracker/api/v{version}/admin/{criteria}/{criteriaValue}/{perPage}/{page}",
+      "DownstreamScheme": "https",
+      "ServiceName": "adminSearchProfileService",
+      "UpstreamPathTemplate": "/skill-tracker/api/v{version}/admin/{criteria}/{criteriaValue}/{perPage}/{page}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRoutesCaseSensitive": false,
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 1000,
+        "TimeoutValue": 10000
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}
